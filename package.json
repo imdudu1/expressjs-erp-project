@@ -1,0 +1,26 @@
+{
+  "name": "expressjs-erp-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/aid95/expressjs-erp-project.git",
+  "author": "juraffe <cd80@kakao.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/runtime": "^7.12.1",
+    "apollo-server": "^2.18.2",
+    "dotenv": "^8.2.0",
+    "graphql-tools": "^6.2.4",
+    "graphql-yoga": "^1.18.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  }
+}
