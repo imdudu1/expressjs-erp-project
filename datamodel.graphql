@@ -1,0 +1,86 @@
+type User {
+  id: ID! @id
+  email: String! @unique
+  username: String! @unique
+  password: String!
+  firstName: String!
+  lastName: String!
+  birthDay: DateTime!
+  isForeigner: Boolean! @default(value: false)
+  department: Department! @relation(name: "UsersOfDept")
+  rank: Rank! @relation(name: "UsersOfRank")
+  chats: [Chat!]!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Department {
+  id: ID! @id
+  title: String! @unique
+  leaderUser: User @relation(name: "Leader")
+  users: [User!]! @relation(name: "UsersOfDept", onDelete: CASCADE)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Rank {
+  id: ID! @id
+  title: String!
+  users: [User!]! @relation(name: "UsersOfRank", onDelete: CASCADE)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Salary {
+  id: ID! @id
+  user: User!
+  basePay: Int!
+  allowance: Int!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type CommuteTime {
+  id: ID! @id
+  workDate: DateTime!
+  offWorkDate: DateTime!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Chat {
+  id: ID! @id
+  participants: [User!]!
+  messages: [Message!]!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Message {
+  id: ID! @id
+  chat: Chat!
+  from: User! @relation(name: "MessageFrom")
+  to: User! @relation(name: "MessageTo")
+  text: String!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Mail {
+  id: ID! @id
+  from: User! @relation(name: "MailFrom")
+  to: User! @relation(name: "MailTo")
+  subject: String!
+  content: String!
+  isRead: Boolean! @default(value: false)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
