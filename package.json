@@ -15,12 +15,17 @@
     "dotenv": "^8.2.0",
     "graphql-tools": "^6.2.4",
     "graphql-yoga": "^1.18.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "prisma": "^1.34.10",
+    "prisma-client-lib": "^1.34.10"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
   },
   "scripts": {
+    "deploy": "prisma deploy",
+    "generate": "prisma generate",
+    "prisma": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec babel-node src/server.js"
   }
 }
