@@ -1,0 +1,78 @@
+type User {
+  id: ID!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  birthDay: String!
+  isForeigner: Boolean!
+  department: Department!
+  rank: Rank!
+  chats: [Chat!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Department {
+  id: ID!
+  title: String!
+  leaderUser: User
+  users: [User!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Rank {
+  id: ID!
+  title: String!
+  users: [User!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Salary {
+  id: ID!
+  user: User!
+  basePay: Int!
+  allowance: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CommuteTime {
+  id: ID!
+  workDate: String!
+  offWorkDate: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Chat {
+  id: ID!
+  participants: [User!]!
+  messages: [Message!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Message {
+  id: ID!
+  chat: Chat!
+  from: User!
+  to: User!
+  text: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Mail {
+  id: ID!
+  from: User!
+  to: User!
+  subject: String!
+  content: String!
+  isRead: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
