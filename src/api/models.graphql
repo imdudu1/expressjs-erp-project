@@ -6,9 +6,8 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: String!
-  isForeigner: Boolean!
-  department: Department!
-  rank: Rank!
+  department: Department
+  rank: Rank
   chats: [Chat!]!
   createdAt: String!
   updatedAt: String!
@@ -42,8 +41,8 @@ type Salary {
 
 type CommuteTime {
   id: ID!
-  workDate: String!
-  offWorkDate: String!
+  workString: String!
+  offWorkString: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -73,6 +72,48 @@ type Mail {
   subject: String!
   content: String!
   isRead: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type MainCategory {
+  id: ID!
+  title: String!
+  middleCategories: [MiddleCategory!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type MiddleCategory {
+  id: ID!
+  title: String!
+  SubClasses: [SubClass!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type SubClass {
+  id: ID!
+  title: String!
+  tasks: [Task!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Task {
+  id: ID!
+  user: User!
+  beginString: String!
+  endString: String!
+  comment: String!
+  keywords: [TaskKeyword!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type TaskKeyword {
+  id: ID!
+  title: String!
   createdAt: String!
   updatedAt: String!
 }

@@ -6,9 +6,8 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: DateTime!
-  isForeigner: Boolean! @default(value: false)
-  department: Department! @relation(name: "UsersOfDept")
-  rank: Rank! @relation(name: "UsersOfRank")
+  department: Department @relation(name: "UsersOfDept")
+  rank: Rank @relation(name: "UsersOfRank")
   chats: [Chat!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -42,8 +41,8 @@ type Salary {
 
 type CommuteTime {
   id: ID! @id
-  workDate: DateTime!
-  offWorkDate: DateTime!
+  workDateTime: DateTime!
+  offWorkDateTime: DateTime!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -73,6 +72,48 @@ type Mail {
   subject: String!
   content: String!
   isRead: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type MainCategory {
+  id: ID! @id
+  title: String!
+  middleCategories: [MiddleCategory!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type MiddleCategory {
+  id: ID! @id
+  title: String!
+  SubClasses: [SubClass!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type SubClass {
+  id: ID! @id
+  title: String!
+  tasks: [Task!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Task {
+  id: ID! @id
+  user: User!
+  beginDateTime: DateTime!
+  endDateTime: DateTime!
+  comment: String!
+  keywords: [TaskKeyword!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type TaskKeyword {
+  id: ID! @id
+  title: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
