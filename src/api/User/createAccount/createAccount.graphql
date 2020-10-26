@@ -1,0 +1,10 @@
+type Mutation {
+  createAccount(
+    email: String!
+    username: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    birthDay: String!
+  ): Boolean!
+}
