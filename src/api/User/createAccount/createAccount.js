@@ -14,7 +14,7 @@ export default {
       await prisma.createUser({
         email,
         username,
-        password: (await argon2.hash(password)).toString(),
+        password: await argon2.hash(password),
         firstName,
         lastName,
         birthDay,
