@@ -1,5 +1,9 @@
+import { prisma } from "../../../generated/prisma-client";
+
 export default {
   User: {
+    department: ({ id }) => prisma.user({ id }).department(),
+    rank: ({ id }) => prisma.user({ id }).rank(),
     fullName: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     age: ({ birthDay }) => {
       let today = new Date();
