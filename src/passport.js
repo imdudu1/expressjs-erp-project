@@ -9,9 +9,9 @@ opts.secretOrKey = process.env.JWT_SECRET;
 // opts.audience = "yoursite.net";
 
 export const authenticateJwt = (req, res, next) =>
-  passport.authenticate("jwt", { session: false }, (error, user) => {
-    if (!!user) {
-      req.user = user;
+  passport.authenticate("jwt", { session: false }, (error, userId) => {
+    if (!!userId) {
+      req.userId = userId;
     }
     next();
   })(req, res, next);
@@ -19,11 +19,7 @@ export const authenticateJwt = (req, res, next) =>
 passport.use(
   new Strategy(opts, async (payload, done) => {
     try {
-      const user = await prisma.user({ id: payload.id });
-      if (!!user) {
-        return done(null, user);
-      }
-      return done(null, false);
+      return done(null, payload.id);
     } catch (error) {
       return done(error, false);
     }

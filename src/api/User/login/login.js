@@ -4,7 +4,7 @@ import { generateWebToken } from "../../../utils";
 
 export default {
   Query: {
-    login: async (_, args, { request }) => {
+    login: async (_, args) => {
       const { username, password } = args;
       const user = await prisma.user({ username });
       const isValid = await argon2.verify(user.password, password);
