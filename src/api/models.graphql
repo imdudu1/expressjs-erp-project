@@ -11,6 +11,9 @@ type User {
   chats: [Chat!]!
   createdAt: String!
   updatedAt: String!
+
+  fullName: String!
+  age: Int!
 }
 
 type Department {
