@@ -1,0 +1,16 @@
+enum ACTION {
+  DELETE
+  EDIT
+}
+
+type Mutation {
+  editUser(
+    email: String
+    newPassword: String
+    confirmPassword: String!
+    firstName: String
+    lastName: String
+    birthDay: String
+    action: ACTION!
+  ): Boolean!
+}
