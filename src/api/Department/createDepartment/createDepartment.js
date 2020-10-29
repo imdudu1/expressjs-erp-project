@@ -5,14 +5,11 @@ export default {
     // @TODO Log in and check permissions
     createDepartment: async (_, args) => {
       const { title } = args;
-      const exists = await prisma.$exists.department({ title });
-      if (!!exists) {
-        return false;
-      } else {
-        await prisma.createDepartment({
-          title,
-        });
+      try {
+        await prisma.createDepartment({ title });
         return true;
+      } catch (error) {
+        return false;
       }
     },
   },
