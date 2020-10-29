@@ -6,8 +6,8 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: DateTime!
-  department: Department @relation(name: "UsersOfDept")
-  rank: Rank @relation(name: "UsersOfRank")
+  department: Department @relation(name: "UsersOfDept", onDelete: SET_NULL)
+  rank: Rank @relation(name: "UsersOfRank", onDelete: SET_NULL)
   chats: [Chat!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -17,7 +17,7 @@ type Department {
   id: ID! @id
   title: String! @unique
   leaderUser: User @relation(name: "Leader")
-  users: [User!]! @relation(name: "UsersOfDept", onDelete: CASCADE)
+  users: [User!]! @relation(name: "UsersOfDept", onDelete: SET_NULL)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -25,7 +25,7 @@ type Department {
 type Rank {
   id: ID! @id
   title: String!
-  users: [User!]! @relation(name: "UsersOfRank", onDelete: CASCADE)
+  users: [User!]! @relation(name: "UsersOfRank", onDelete: SET_NULL)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
