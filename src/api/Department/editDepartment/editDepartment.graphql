@@ -1,0 +1,8 @@
+enum ACTIONS {
+  EDIT
+  DELETE
+}
+
+type Mutation {
+  editDepartment(id: String!, title: String, action: ACTIONS!): Boolean!
+}
