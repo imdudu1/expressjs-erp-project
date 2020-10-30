@@ -1,0 +1,8 @@
+enum TYPE {
+  PLAIN
+  LEADER
+}
+
+type Mutation {
+  joinDepartment(userId: String!, deptId: String!, type: TYPE): Boolean!
+}
