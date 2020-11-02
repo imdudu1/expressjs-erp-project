@@ -5,9 +5,9 @@ const ACTION_EDIT = "EDIT";
 
 export default {
   Mutation: {
-    editDepartment: async (_, args) => {
+    updateDepartment: async (_, args) => {
       try {
-        const { id, title, action } = args;
+        const { id, title, leaderUser, action } = args;
         switch (action) {
           case ACTION_DELETE:
             await prisma.deleteDepartment({
@@ -16,13 +16,22 @@ export default {
             break;
 
           case ACTION_EDIT:
+            let data = {};
+            if (!!title) {
+              data.title = title;
+            }
+            if (!!leaderUser) {
+              data.leaderUser = {
+                connect: {
+                  id: leaderUser,
+                },
+              };
+            }
             await prisma.updateDepartment({
               where: {
                 id,
               },
-              data: {
-                title,
-              },
+              data,
             });
             break;
 
@@ -31,7 +40,7 @@ export default {
         }
         return true;
       } catch (error) {
-        throw Error("Invalid request.");
+        return false;
       }
     },
   },

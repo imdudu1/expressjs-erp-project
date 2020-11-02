@@ -1,0 +1,13 @@
+enum ACTIONS {
+  EDIT
+  DELETE
+}
+
+type Mutation {
+  updateDepartment(
+    id: String!
+    title: String
+    leaderUser: String
+    action: ACTIONS!
+  ): Boolean!
+}
