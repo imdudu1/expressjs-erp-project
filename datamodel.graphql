@@ -6,18 +6,19 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: DateTime!
-  department: Department @relation(name: "UsersOfDept", onDelete: SET_NULL)
-  rank: Rank @relation(name: "UsersOfRank", onDelete: SET_NULL)
+  department: Department @relation(name: "UserDept")
+  rank: Rank
   chats: [Chat!]!
+  basePay: Int @default(value: 2000000)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  loggedInAt: DateTime
 }
 
 type Department {
   id: ID! @id
   title: String! @unique
   leaderUser: User @relation(name: "Leader")
-  users: [User!]! @relation(name: "UsersOfDept", onDelete: SET_NULL)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -25,7 +26,6 @@ type Department {
 type Rank {
   id: ID! @id
   title: String!
-  users: [User!]! @relation(name: "UsersOfRank", onDelete: SET_NULL)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -41,6 +41,7 @@ type Salary {
 
 type CommuteTime {
   id: ID! @id
+  user: User!
   workDateTime: DateTime!
   offWorkDateTime: DateTime!
   createdAt: DateTime! @createdAt

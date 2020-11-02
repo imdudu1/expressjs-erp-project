@@ -6,11 +6,13 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: String!
-  department: Department
-  rank: Rank
+  department: Department!
+  rank: Rank!
   chats: [Chat!]!
+  basePay: Int!
   createdAt: String!
   updatedAt: String!
+  loggedInAt: String!
 
   fullName: String!
   age: Int!
@@ -20,7 +22,6 @@ type Department {
   id: ID!
   title: String!
   leaderUser: User
-  users: [User!]!
   createdAt: String!
   updatedAt: String!
 }
@@ -28,7 +29,6 @@ type Department {
 type Rank {
   id: ID!
   title: String!
-  users: [User!]!
   createdAt: String!
   updatedAt: String!
 }
@@ -44,6 +44,7 @@ type Salary {
 
 type CommuteTime {
   id: ID!
+  user: User!
   workString: String!
   offWorkString: String!
   createdAt: String!
