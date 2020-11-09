@@ -5,7 +5,7 @@ const ACTION_EDIT = "EDIT";
 
 export default {
   Mutation: {
-    updateDepartment: async (_, args) => {
+    editDepartment: async (_, args) => {
       try {
         const { id, title, leaderUser, action } = args;
         switch (action) {
