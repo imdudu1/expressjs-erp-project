@@ -3,7 +3,7 @@ import { prisma } from "../../../../generated/prisma-client";
 export default {
   Query: {
     searchUser: async (_, args) => {
-      const { term, beginDate, endDate, deptId } = args;
+      const { term, beginDate, endDate, deptName } = args;
       let filter = { where: { AND: [] } };
 
       if (!!term) {
@@ -24,10 +24,10 @@ export default {
         filter.where.AND.push(range);
       }
 
-      if (!!deptId) {
+      if (!!deptName) {
         filter.where.AND.push({
           department: {
-            id: deptId,
+            title_contains: deptName,
           },
         });
       }

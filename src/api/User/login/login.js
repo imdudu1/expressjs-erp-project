@@ -7,17 +7,19 @@ export default {
     login: async (_, args) => {
       const { username, password } = args;
       const user = await prisma.user({ username });
-      const isValid = await argon2.verify(user.password, password);
-      if (!!isValid) {
-        await prisma.updateUser({
-          where: {
-            username,
-          },
-          data: {
-            loggedInAt: new Date().toISOString().slice(0, 10),
-          },
-        });
-        return generateWebToken(user.id);
+      if (!!user) {
+        const isValid = await argon2.verify(user.password, password);
+        if (!!isValid) {
+          await prisma.updateUser({
+            where: {
+              username,
+            },
+            data: {
+              loggedInAt: new Date().toISOString().slice(0, 10),
+            },
+          });
+          return generateWebToken(user.id);
+        }
       } else {
         throw Error("Incorrect username or password");
       }

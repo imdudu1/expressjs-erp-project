@@ -18,7 +18,7 @@ export default {
           birthDay,
           action,
         } = args;
-        console.log(args);
+
         const isValid = await argon2.verify(user.password, confirmPassword);
         if (isValid) {
           if (action === EDIT) {
