@@ -1,0 +1,8 @@
+type Mutation {
+  createTask(
+    subClassId: String!
+    comment: String!
+    beginDate: String!
+    endDate: String!
+  ): Task
+}

@@ -1,0 +1,3 @@
+type Query {
+  searchTask(username: String, beginDate: String, endDate: String): [Task!]!
+}

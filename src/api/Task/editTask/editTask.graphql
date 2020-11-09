@@ -1,0 +1,14 @@
+enum ACTION {
+  EDIT
+  DELETE
+}
+
+type Mutation {
+  editTask(
+    id: String!
+    comment: String
+    beginDate: String
+    endDate: String
+    action: ACTION!
+  ): Boolean!
+}
