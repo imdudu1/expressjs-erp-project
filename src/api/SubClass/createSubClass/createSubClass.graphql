@@ -1,0 +1,3 @@
+type Mutation {
+  createSubClass(middleCategoryId: String!, title: String!): SubClass
+}
