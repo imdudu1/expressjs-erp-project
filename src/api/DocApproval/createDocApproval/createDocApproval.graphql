@@ -1,0 +1,9 @@
+type Mutation {
+  createDocApproval(
+    approvers: [String!]!
+    reviewers: [String!]!
+    subject: String!
+    content: String!
+    comment: String
+  ): Boolean!
+}

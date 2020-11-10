@@ -1,0 +1,8 @@
+enum ACTION {
+  ACCEPT
+  REJECT
+}
+
+type Mutation {
+  approveDocs(id: String!, action: ACTION!, rejectReason: String): Boolean!
+}
