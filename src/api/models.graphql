@@ -107,8 +107,8 @@ type SubClass {
 type Task {
   id: ID!
   user: User!
-  beginString: String!
-  endString: String!
+  beginDateTime: String!
+  endDateTime: String!
   comment: String!
   keywords: [TaskKeyword!]!
   createdAt: String!
@@ -118,6 +118,31 @@ type Task {
 type TaskKeyword {
   id: ID!
   title: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type DocApproval {
+  id: ID!
+  state: String!
+  drafter: User!
+  currentApprover: Approver!
+  approvers: [Approver!]!
+  reviewers: [User!]
+  subject: String!
+  content: String!
+  comment: String
+  rejectReason: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Approver {
+  id: ID!
+  approver: User!
+  nextApprover: Approver
+  isPass: Boolean!
+  approveDate: String!
   createdAt: String!
   updatedAt: String!
 }

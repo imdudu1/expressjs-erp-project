@@ -118,3 +118,28 @@ type TaskKeyword {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
+
+type DocApproval {
+  id: ID! @id
+  state: String! @default(value: "PENDING")
+  drafter: User! @relation(name: "Drafter")
+  currentApprover: Approver! @relation(name: "CurrentApprover")
+  approvers: [Approver!]! @relation(name: "Approvers")
+  reviewers: [User!] @relation(name: "Reviweers")
+  subject: String!
+  content: String!
+  comment: String
+  rejectReason: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Approver {
+  id: ID! @id
+  approver: User!
+  nextApprover: Approver
+  isPass: Boolean! @default(value: false)
+  approveDate: DateTime
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
