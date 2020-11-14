@@ -63,3 +63,5 @@ generated
 build
 
 backup/
+
+/.idea
