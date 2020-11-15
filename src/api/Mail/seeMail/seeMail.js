@@ -19,6 +19,7 @@ export default {
             },
           ],
         },
+        orderBy: "createdAt_DESC",
       });
     },
   },
