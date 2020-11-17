@@ -1,6 +1,7 @@
 type Mutation {
   createTask(
-    subClassId: String!
+    journalId: String!
+    categoryId: String!
     comment: String!
     beginDate: String!
     endDate: String!

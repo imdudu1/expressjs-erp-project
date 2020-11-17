@@ -77,26 +77,12 @@ type Mail {
   updatedAt: DateTime! @updatedAt
 }
 
-type MainCategory {
+type Category {
   id: ID! @id
-  title: String!
-  middleCategories: [MiddleCategory!]!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type MiddleCategory {
-  id: ID! @id
-  title: String!
-  SubClasses: [SubClass!]!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type SubClass {
-  id: ID! @id
-  title: String!
-  tasks: [Task!]!
+  title: String! @unique
+  parentCategory: Category
+  type: Int!
+  tasks: [Task!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -104,10 +90,11 @@ type SubClass {
 type Task {
   id: ID! @id
   user: User!
+  category: Category!
   beginDateTime: DateTime!
   endDateTime: DateTime!
   comment: String!
-  keywords: [TaskKeyword!]!
+  keywords: [TaskKeyword!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -125,7 +112,7 @@ type DocApproval {
   drafter: User! @relation(name: "Drafter")
   currentApprover: Approver! @relation(name: "CurrentApprover")
   approvers: [Approver!]! @relation(name: "Approvers")
-  reviewers: [User!] @relation(name: "Reviweers")
+  reviewers: [User!] @relation(name: "Reviewers")
   subject: String!
   content: String!
   comment: String
@@ -140,6 +127,14 @@ type Approver {
   nextApprover: Approver
   isPass: Boolean! @default(value: false)
   approveDate: DateTime
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type DailyJournal {
+  id: ID! @id
+  user: User!
+  tasks: [Task!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

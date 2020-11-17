@@ -1,3 +1,0 @@
-type Mutation {
-  createMainCategory(title: String!): MainCategory
-}

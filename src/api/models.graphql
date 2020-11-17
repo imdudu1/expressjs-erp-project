@@ -80,26 +80,12 @@ type Mail {
   updatedAt: String!
 }
 
-type MainCategory {
+type Category {
   id: ID!
   title: String!
-  middleCategories: [MiddleCategory!]!
-  createdAt: String!
-  updatedAt: String!
-}
-
-type MiddleCategory {
-  id: ID!
-  title: String!
-  SubClasses: [SubClass!]!
-  createdAt: String!
-  updatedAt: String!
-}
-
-type SubClass {
-  id: ID!
-  title: String!
-  tasks: [Task!]!
+  parentCategory: Category
+  type: Int!
+  tasks: [Task!]
   createdAt: String!
   updatedAt: String!
 }
@@ -107,10 +93,11 @@ type SubClass {
 type Task {
   id: ID!
   user: User!
+  category: Category!
   beginDateTime: String!
   endDateTime: String!
   comment: String!
-  keywords: [TaskKeyword!]!
+  keywords: [TaskKeyword!]
   createdAt: String!
   updatedAt: String!
 }
@@ -143,6 +130,14 @@ type Approver {
   nextApprover: Approver
   isPass: Boolean!
   approveDate: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type DailyJournal {
+  id: ID!
+  user: User!
+  tasks: [Task!]
   createdAt: String!
   updatedAt: String!
 }
