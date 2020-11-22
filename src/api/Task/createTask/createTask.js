@@ -81,7 +81,7 @@ export default {
 
           return task;
         }
-        return null;
+        return Error("Invalid request data");
       } catch (error) {
         return Error(error);
       }
