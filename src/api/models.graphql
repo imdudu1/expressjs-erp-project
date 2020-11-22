@@ -6,6 +6,8 @@ type User {
   firstName: String!
   lastName: String!
   birthDay: String!
+  address: String!
+  addressDetail: String!
   department: Department!
   rank: Rank!
   chats: [Chat!]!

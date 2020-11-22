@@ -6,5 +6,7 @@ type Mutation {
     firstName: String!
     lastName: String!
     birthDay: String!
+    address: String!
+    addressDetail: String!
   ): Boolean!
 }

@@ -4,7 +4,7 @@ import * as argon2 from "argon2";
 export default {
   Mutation: {
     createAccount: async (_, args) => {
-      const { email, username, password, firstName, lastName, birthDay } = args;
+      const { email, username, password, firstName, lastName, birthDay, address, addressDetail } = args;
       const exists = await prisma.$exists.user({
         OR: [{ username }, { email }],
       });
@@ -18,6 +18,8 @@ export default {
         firstName,
         lastName,
         birthDay,
+        address,
+        addressDetail
       });
       return true;
     },

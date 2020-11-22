@@ -5,6 +5,8 @@ type User {
   password: String!
   firstName: String!
   lastName: String!
+  address: String!
+  addressDetail: String!
   birthDay: DateTime!
   department: Department @relation(name: "UserDept")
   rank: Rank
