@@ -12,17 +12,16 @@ export default {
         if (!!isValid) {
           await prisma.updateUser({
             where: {
-              username,
+              username
             },
             data: {
-              loggedInAt: new Date().toISOString().slice(0, 10),
-            },
+              loggedInAt: new Date().toISOString().slice(0, 10)
+            }
           });
           return generateWebToken(user.id);
         }
-      } else {
-        throw Error("Incorrect username or password");
       }
-    },
-  },
+      throw Error("Incorrect username or password");
+    }
+  }
 };
