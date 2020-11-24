@@ -12,16 +12,16 @@ export default {
           let data = {
             approver: {
               connect: {
-                id: approvers[i],
-              },
-            },
+                id: approvers[i]
+              }
+            }
           };
 
           if (i !== approvers.length - 1) {
             data["nextApprover"] = {
               connect: {
-                id: approverDatas[u].id,
-              },
+                id: approverDatas[u].id
+              }
             };
           }
 
@@ -33,37 +33,37 @@ export default {
         await prisma.createDocApproval({
           drafter: {
             connect: {
-              id: user.id,
-            },
+              id: user.id
+            }
           },
           currentApprover: {
             connect: {
-              id: approverDatas[0].id,
-            },
+              id: approverDatas[0].id
+            }
           },
           approvers: {
-            connect: approverDatas.map((approverData) => {
+            connect: approverDatas.map(approverData => {
               return {
-                id: approverData.id,
+                id: approverData.id
               };
-            }),
+            })
           },
           reviewers: {
-            connect: reviewers.map((reviewer) => {
+            connect: reviewers.map(reviewer => {
               return {
-                id: reviewer,
+                id: reviewer
               };
-            }),
+            })
           },
           subject,
           content,
-          comment,
+          comment
         });
         return true;
       } catch (error) {
         console.log(error);
         return false;
       }
-    },
-  },
+    }
+  }
 };

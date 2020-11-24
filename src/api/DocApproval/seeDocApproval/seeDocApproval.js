@@ -18,14 +18,15 @@ export default {
               },
             },
             {
-              approvers_some: {
+              currentApprover: {
                 approver: {
-                  id: user.id,
-                },
-              },
+                  id: user.id
+                }
+              }
             },
           ],
         },
+        orderBy: "createdAt_DESC"
       });
     },
   },
