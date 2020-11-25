@@ -4,13 +4,35 @@ export default {
   Mutation: {
     // @TODO Log in and check permissions
     createDepartment: async (_, args) => {
-      const { title } = args;
       try {
-        await prisma.createDepartment({ title });
+        const { title } = args;
+        let isDefault = args.isDefault || false;
+        const [defaultDept] = await prisma.departments({
+          where: {
+            isDefault: true
+          }
+        });
+        if (!!defaultDept) {
+          await prisma.updateDepartment({
+            where: {
+              id: defaultDept.id
+            },
+            data: {
+              isDefault: false
+            }
+          });
+        } else {
+          isDefault = true;
+        }
+        await prisma.createDepartment({
+          title,
+          isDefault
+        });
         return true;
       } catch (error) {
+        console.log(error);
         return false;
       }
-    },
-  },
+    }
+  }
 };

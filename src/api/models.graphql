@@ -15,7 +15,6 @@ type User {
   createdAt: String!
   updatedAt: String!
   loggedInAt: String!
-
   fullName: String!
   age: Int!
 }
@@ -24,6 +23,7 @@ type Department {
   id: ID!
   title: String!
   leaderUser: User
+  isDefault: Boolean!
   createdAt: String!
   updatedAt: String!
 }
@@ -31,6 +31,7 @@ type Department {
 type Rank {
   id: ID!
   title: String!
+  isDefault: Boolean!
   createdAt: String!
   updatedAt: String!
 }

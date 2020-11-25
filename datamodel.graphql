@@ -21,13 +21,15 @@ type Department {
   id: ID! @id
   title: String! @unique
   leaderUser: User @relation(name: "Leader")
+  isDefault: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
 
 type Rank {
   id: ID! @id
-  title: String!
+  title: String! @unique
+  isDefault: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
