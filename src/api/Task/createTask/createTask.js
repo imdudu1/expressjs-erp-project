@@ -6,10 +6,8 @@ export default {
       try {
         const user = await isAuthenticated(request);
         const { journalId, categoryId, comment, beginDate, endDate } = args;
-
         const sDate = new Date(beginDate);
         const eDate = new Date(endDate);
-
         const isValid = await prisma.$exists.task({
           AND: [
             {
@@ -21,14 +19,20 @@ export default {
               OR: [
                 {
                   AND: [
-                    { beginDateTime_gte: sDate.toISOString() },
-                    { beginDateTime_lte: eDate.toISOString() }
+                    { beginDateTime_lte: sDate },
+                    { endDateTime_gte: sDate }
                   ]
                 },
                 {
                   AND: [
-                    { endDateTime_gte: sDate.toISOString() },
-                    { endDateTime_lte: eDate.toISOString() }
+                    { beginDateTime_lte: eDate },
+                    { endDateTime_gte: eDate }
+                  ]
+                },
+                {
+                  AND: [
+                    { beginDateTime_gte: sDate},
+                    { endDateTime_lte: eDate }
                   ]
                 }
               ]
