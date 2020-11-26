@@ -13,6 +13,7 @@
     "@babel/runtime": "^7.12.1",
     "apollo-server": "^2.18.2",
     "argon2": "^0.27.0",
+    "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "graphql-tools": "^6.2.4",
     "graphql-yoga": "^1.18.3",
