@@ -8,8 +8,8 @@ type User {
   birthDay: String!
   address: String!
   addressDetail: String!
-  department: Department!
-  rank: Rank!
+  department: Department
+  rank: Rank
   chats: [Chat!]!
   basePay: Int!
   createdAt: String!
@@ -123,6 +123,7 @@ type DocApproval {
   content: String!
   comment: String
   rejectReason: String
+  isMe: Boolean!
   createdAt: String!
   updatedAt: String!
 }

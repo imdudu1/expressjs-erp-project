@@ -131,6 +131,7 @@ type Approver {
   nextApprover: Approver
   isPass: Boolean! @default(value: false)
   approveDate: DateTime
+  acceptComment: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

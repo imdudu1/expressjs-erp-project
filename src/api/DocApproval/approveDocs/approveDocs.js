@@ -7,61 +7,71 @@ export default {
   Mutation: {
     approveDocs: async (_, args, { request, isAuthenticated }) => {
       const user = await isAuthenticated(request);
-      const { id, action, rejectReason } = args;
+      const { id, action, acceptComment, rejectReason } = args;
 
       const docApproval = await prisma.docApproval({ id });
-      const curApproverData = await prisma
-        .docApproval({ id })
-        .currentApprover();
-      const approverUser = await prisma
+      const curApproveData = await prisma.docApproval({ id }).currentApprover();
+      const approveUser = await prisma
         .docApproval({ id })
         .currentApprover()
         .approver();
 
       if (action === ACCEPT) {
         if (docApproval.state !== REJECT) {
-          if (approverUser.id === user.id) {
+          if (approveUser.id === user.id) {
             await prisma.updateApprover({
               where: {
-                id: curApproverData.id,
+                id: curApproveData.id
               },
               data: {
                 isPass: true,
-                approveDate: new Date(),
-              },
+                acceptComment,
+                approveDate: new Date()
+              }
             });
 
             const nextApprover = await prisma
-              .approver({ id: curApproverData.id })
+              .approver({ id: curApproveData.id })
               .nextApprover();
-            await prisma.updateDocApproval({
-              where: {
-                id,
-              },
-              data: {
-                currentApprover: {
-                  connect: {
-                    id: nextApprover.id,
-                  },
+            if (nextApprover !== null) {
+              await prisma.updateDocApproval({
+                where: {
+                  id
                 },
-              },
-            });
+                data: {
+                  currentApprover: {
+                    connect: {
+                      id: nextApprover.id
+                    }
+                  }
+                }
+              });
+            } else {
+              await prisma.updateDocApproval({
+                where: {
+                  id
+                },
+                data: {
+                  state: "DONE"
+                }
+              });
+            }
             return true;
           }
         }
       } else if (action === REJECT) {
         await prisma.updateDocApproval({
           where: {
-            id,
+            id
           },
           data: {
             state: REJECT,
-            rejectReason,
-          },
+            rejectReason
+          }
         });
         return true;
       }
       return false;
-    },
-  },
+    }
+  }
 };

@@ -4,5 +4,5 @@ enum ACTION {
 }
 
 type Mutation {
-  approveDocs(id: String!, action: ACTION!, rejectReason: String): Boolean!
+  approveDocs(id: String!, action: ACTION!, acceptComment: String, rejectReason: String): Boolean!
 }
