@@ -12,15 +12,17 @@ export default {
               OR: [
                 {
                   to: {
-                    id: user.id,
-                  },
+                    id: user.id
+                  }
                 },
                 {
                   from: {
-                    id: user.id,
-                  },
-                },
-              ],
+                    id: user.id
+                  }
+                }
+              ]
+            },
+            {
               OR: [
                 { subject_contains: term },
                 { content_contains: term },
@@ -29,16 +31,16 @@ export default {
                     OR: [
                       { username_contains: term },
                       { lastName_contains: term },
-                      { firstName_contains: term },
-                    ],
-                  },
-                },
-              ],
-            },
-          ],
+                      { firstName_contains: term }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         },
-        orderBy: "createdAt_DESC",
+        orderBy: "createdAt_DESC"
       });
-    },
-  },
+    }
+  }
 };

@@ -6,21 +6,12 @@ export default {
       const user = await isAuthenticated(request);
       return prisma.mails({
         where: {
-          OR: [
-            {
-              from: {
-                id: user.id,
-              },
-            },
-            {
-              to: {
-                id: user.id,
-              },
-            },
-          ],
+          to: {
+            id: user.id
+          }
         },
-        orderBy: "createdAt_DESC",
+        orderBy: "createdAt_DESC"
       });
-    },
-  },
+    }
+  }
 };
