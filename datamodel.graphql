@@ -48,6 +48,10 @@ type CommuteTime {
   user: User!
   workDateTime: DateTime!
   offWorkDateTime: DateTime!
+  workTime: Int!
+  overWorkTime: Int!
+  nightShiftTime: Int!
+  isHoliday: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

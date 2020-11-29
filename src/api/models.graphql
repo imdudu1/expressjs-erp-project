@@ -50,6 +50,10 @@ type CommuteTime {
   user: User!
   workString: String!
   offWorkString: String!
+  workTime: Int!
+  overWorkTime: Int!
+  nightShiftTime: Int!
+  isHoliday: Boolean!
   createdAt: String!
   updatedAt: String!
 }

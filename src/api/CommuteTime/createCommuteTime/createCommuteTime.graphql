@@ -1,3 +1,3 @@
 type Mutation {
-  createCommuteTime(startDate: String!, endDate: String!): Boolean!
+  createCommuteTime(startDate: String!, endDate: String!): CommuteTime!
 }
