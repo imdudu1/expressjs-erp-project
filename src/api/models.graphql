@@ -39,8 +39,14 @@ type Rank {
 type Salary {
   id: ID!
   user: User!
-  basePay: Int!
-  allowance: Int!
+  monthSalary: Int!
+  dayShiftAmount: Int!
+  nightShiftAmount: Int!
+  overtimeAmount: Int!
+  holidayAmount: Int!
+  nationalPension: Int!
+  healthInsurance: Int!
+  employmentInsurance: Int!
   createdAt: String!
   updatedAt: String!
 }
@@ -48,7 +54,6 @@ type Salary {
 type CommuteTime {
   id: ID!
   user: User!
-  workString: String!
   offWorkString: String!
   workTime: Int!
   overWorkTime: Int!

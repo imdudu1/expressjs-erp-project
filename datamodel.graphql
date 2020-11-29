@@ -11,7 +11,7 @@ type User {
   department: Department @relation(name: "UserDept")
   rank: Rank
   chats: [Chat!]!
-  basePay: Int @default(value: 2000000)
+  basePay: Int @default(value: 42000000)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   loggedInAt: DateTime
@@ -37,8 +37,13 @@ type Rank {
 type Salary {
   id: ID! @id
   user: User!
-  basePay: Int!
-  allowance: Int!
+  dayShiftAmount: Int!
+  nightShiftAmount: Int!
+  overtimeAmount: Int!
+  holidayAmount: Int!
+  nationalPension: Int!
+  healthInsurance: Int!
+  employmentInsurance: Int!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -48,9 +53,9 @@ type CommuteTime {
   user: User!
   workDateTime: DateTime!
   offWorkDateTime: DateTime!
-  workTime: Int!
-  overWorkTime: Int!
-  nightShiftTime: Int!
+  workTime: Float!
+  overWorkTime: Float!
+  nightShiftTime: Float!
   isHoliday: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
