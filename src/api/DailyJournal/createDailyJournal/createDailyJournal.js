@@ -1,21 +1,20 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { format, subHours } from "date-fns";
+import { format, subHours, startOfDay, endOfDay } from "date-fns";
 
 export default {
   Mutation: {
     createDailyJournal: async (_, args, { request, isAuthenticated }) => {
       const user = await isAuthenticated(request);
 
-      const today = subHours(new Date(format(new Date(), "yyyy-MM-dd")), 9);
-      const tomorrow = subHours(new Date(today), 9);
-      tomorrow.setDate(today.getDate() + 1);
+      const start = subHours(startOfDay(new Date()), 9);
+      const end = subHours(endOfDay(new Date()), 9);
       const exists = await prisma.$exists.dailyJournal({
         AND: [
           {
-            createdAt_gte: today
+            createdAt_gte: start
           },
           {
-            createdAt_lt: tomorrow
+            createdAt_lte: end
           }
         ]
       });

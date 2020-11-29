@@ -18,7 +18,7 @@ export default {
         OR: [{ username }, { email }]
       });
       if (!!exists) {
-        throw Error("Duplicate username or email");
+        throw Error("종복된 username 또는 email입니다.");
       } else {
         const [baseDept] = await prisma.departments({
           where: {
