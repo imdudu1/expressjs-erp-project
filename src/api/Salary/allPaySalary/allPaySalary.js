@@ -20,7 +20,7 @@ export default {
       const startMonth = subMonths(endMonth, 1);
       const users = await prisma.users();
       users.map(async user => {
-        const commuteTimes = await prisma.commuteTimes({
+        const commuteTimeItems = await prisma.commuteTimes({
           where: {
             user: {
               id: user.id
@@ -35,20 +35,19 @@ export default {
             ]
           }
         });
-        if (commuteTimes.length === 0) return;
+        if (commuteTimeItems.length === 0) return;
 
         let hourlyWage = user.basePay / 12 / 209;
         let dayShift = 0.0;
         let nightShift = 0.0;
         let overtime = 0.0;
         let holidayWorkTime = 0.0;
-        commuteTimes.map(commuteTime => {
+        commuteTimeItems.map(commuteTime => {
           const {
             isHoliday,
             workTime,
             overWorkTime,
             nightShiftTime,
-            workDateTime
           } = commuteTime;
 
           if (isHoliday) {

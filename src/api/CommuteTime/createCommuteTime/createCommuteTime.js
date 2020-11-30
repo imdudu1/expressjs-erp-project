@@ -15,10 +15,10 @@ export default {
       if (nightShift > 8) {
         nightShiftMod = nightShift - 8;
         nightShift = 8;
-      }
-      if (nightShift <= 0) {
+      } else if (nightShift <= 0) {
         nightShift = 0;
       }
+
       let overtime = dayShift - 8 + nightShiftMod - nightShift;
       if (overtime <= 0) {
         overtime = 0;

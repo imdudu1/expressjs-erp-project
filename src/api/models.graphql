@@ -54,7 +54,8 @@ type Salary {
 type CommuteTime {
   id: ID!
   user: User!
-  offWorkString: String!
+  workDateTime: String!
+  offWorkDateTime: String!
   workTime: Int!
   overWorkTime: Int!
   nightShiftTime: Int!
