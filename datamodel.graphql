@@ -73,7 +73,6 @@ type Message {
   id: ID! @id
   chat: Chat!
   from: User! @relation(name: "MessageFrom")
-  to: User! @relation(name: "MessageTo")
   text: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt

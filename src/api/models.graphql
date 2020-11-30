@@ -76,7 +76,6 @@ type Message {
   id: ID!
   chat: Chat!
   from: User!
-  to: User!
   text: String!
   createdAt: String!
   updatedAt: String!
