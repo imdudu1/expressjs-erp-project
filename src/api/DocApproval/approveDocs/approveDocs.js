@@ -26,7 +26,7 @@ export default {
               data: {
                 isPass: true,
                 acceptComment,
-                approveDate: new Date()
+                approveDate: new Date().toISOString()
               }
             });
 

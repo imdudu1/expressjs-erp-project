@@ -9,7 +9,8 @@ export default {
           user: {
             id: user.id
           }
-        }
+        },
+        orderBy: "createdAt_DESC"
       });
     }
   }
