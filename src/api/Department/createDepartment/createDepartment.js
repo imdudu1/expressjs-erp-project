@@ -9,30 +9,29 @@ export default {
         let isDefault = args.isDefault || false;
         const [defaultDept] = await prisma.departments({
           where: {
-            isDefault: true
-          }
+            isDefault: true,
+          },
         });
         if (!!defaultDept) {
           await prisma.updateDepartment({
             where: {
-              id: defaultDept.id
+              id: defaultDept.id,
             },
             data: {
-              isDefault: false
-            }
+              isDefault: false,
+            },
           });
         } else {
           isDefault = true;
         }
         await prisma.createDepartment({
           title,
-          isDefault
+          isDefault,
         });
         return true;
       } catch (error) {
-        console.log(error);
         return false;
       }
-    }
-  }
+    },
+  },
 };

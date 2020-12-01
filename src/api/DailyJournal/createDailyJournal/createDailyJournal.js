@@ -11,24 +11,23 @@ export default {
       const exists = await prisma.$exists.dailyJournal({
         AND: [
           {
-            createdAt_gte: start
+            createdAt_gte: start,
           },
           {
-            createdAt_lte: end
-          }
-        ]
+            createdAt_lte: end,
+          },
+        ],
       });
-      console.log(exists);
       if (exists) {
         return null;
       }
       return prisma.createDailyJournal({
         user: {
           connect: {
-            id: user.id
-          }
-        }
+            id: user.id,
+          },
+        },
       });
-    }
-  }
+    },
+  },
 };
