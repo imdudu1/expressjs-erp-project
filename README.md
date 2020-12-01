@@ -1,4 +1,5 @@
-# 🏭 기업 ERP 프로젝트
+# 🏭 기업 ERP 프로젝트 (Back-end)
+#### Front-end 작업물은 [이곳](https://github.com/aid95/expressjs-erp-project-frontend)에서 확인할 수 있습니다.
 
 ## 사용 기술
 
