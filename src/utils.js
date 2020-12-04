@@ -35,3 +35,7 @@ export const checkSqliWord = s => {
   }
   return true;
 };
+
+export const isValidDate = (d) => {
+  return d instanceof Date && !isNaN(d);
+}
