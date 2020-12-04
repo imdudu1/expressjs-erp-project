@@ -8,42 +8,60 @@ export default {
   Mutation: {
     editUser: async (_, args, { request, isAuthenticated }) => {
       try {
-        const user = await isAuthenticated(request);
         const {
+          id,
           email,
-          newPassword,
-          confirmPassword,
           firstName,
           lastName,
+          basePay,
+          rank,
+          department,
+          address,
+          addressDetail,
           birthDay,
-          action,
+          action
         } = args;
 
-        const isValid = await argon2.verify(user.password, confirmPassword);
-        if (isValid) {
-          if (action === EDIT) {
-            let data = {};
-            if (!!email) data.email = email;
-            if (!!newPassword) data.password = await argon2.hash(newPassword);
-            if (!!firstName) data.firstName = firstName;
-            if (!!lastName) data.lastName = lastName;
-            if (!!birthDay) data.birthDay = new Date(birthDay);
-            await prisma.updateUser({
-              where: {
-                id: user.id,
-              },
-              data,
-            });
-          } else if (action === DELETE) {
-            await prisma.deleteUser({ id: user.id });
+        if (action === EDIT) {
+          let data = {};
+          if (!!email) data.email = email;
+          if (!!firstName) data.firstName = firstName;
+          if (!!basePay) data.basePay = basePay;
+          if (!!rank) {
+            data.rank = {
+              connect: {
+                id: rank
+              }
+            };
           }
-          return true;
-        } else {
-          return false;
+          if (!!department) {
+            data.department = {
+              connect: {
+                id: department
+              }
+            };
+          }
+          if (!!address) {
+            data.address = address;
+          }
+          if (!!addressDetail) {
+            data.addressDetail = addressDetail;
+          }
+          if (!!lastName) data.lastName = lastName;
+          if (!!birthDay) data.birthDay = new Date(birthDay);
+          await prisma.updateUser({
+            where: {
+              id
+            },
+            data
+          });
+        } else if (action === DELETE) {
+          await prisma.deleteUser({ id });
         }
+        return true;
       } catch (error) {
         return false;
       }
-    },
-  },
+    }
+  }
 };

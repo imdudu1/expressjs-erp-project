@@ -15,5 +15,28 @@ export default {
       }
       return age;
     },
-  },
+    pendingDoc: ({ id }) =>
+      prisma.docApprovals({
+        where: {
+          AND: [
+            {
+              currentApprover: {
+                approver: {
+                  id
+                }
+              }
+            },
+            {
+              state_contains: "PENDING"
+            }
+          ]
+        }
+      }),
+    newMail: ({ id }) =>
+      prisma.mails({
+        where: {
+          AND: [{ to: { id } }, { isRead: false }]
+        }
+      })
+  }
 };

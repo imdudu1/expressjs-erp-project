@@ -2,7 +2,6 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
-    // @TODO Log in and check permissions
     createDepartment: async (_, args) => {
       try {
         const { title } = args;

@@ -5,11 +5,15 @@ enum ACTION {
 
 type Mutation {
   editUser(
+    id: String!
     email: String
-    newPassword: String
-    confirmPassword: String!
     firstName: String
     lastName: String
+    basePay: Int
+    rank: String
+    department: String
+    address: String
+    addressDetail: String
     birthDay: String
     action: ACTION!
   ): Boolean!

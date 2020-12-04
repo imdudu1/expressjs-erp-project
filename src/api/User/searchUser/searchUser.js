@@ -1,13 +1,15 @@
 import { prisma } from "../../../../generated/prisma-client";
+import {isValidDate} from "../../../utils";
+import {addHours, startOfYear, endOfYear} from "date-fns";
 
 export default {
   Query: {
     searchUser: async (_, args) => {
       const { term, beginDate, endDate, deptName } = args;
-      let filter = { where: { AND: [] } };
+      let filter = { where: { OR: [] } };
 
       if (!!term) {
-        filter.where.AND.push({
+        filter.where.OR.push({
           OR: [
             { username_contains: term },
             { lastName_contains: term },
@@ -16,16 +18,23 @@ export default {
         });
       }
 
-      if (!!beginDate) {
-        let range = { AND: [{ birthDay_gte: new Date(beginDate) }] };
-        if (!!endDate) {
-          range.AND.push({ birthDay_lte: new Date(endDate) });
-        }
-        filter.where.AND.push(range);
+
+      let s = new Date(beginDate);
+      let e,
+        dateRange = {};
+      if (isValidDate(s)) {
+        s = startOfYear(s);
+        e = endOfYear(s);
+        filter.where.OR.push({
+          AND: [
+            {birthDay_gte: s},
+            {birthDay_lte: e}
+          ]
+        })
       }
 
       if (!!deptName) {
-        filter.where.AND.push({
+        filter.where.OR.push({
           department: {
             title_contains: deptName,
           },
