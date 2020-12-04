@@ -16,6 +16,9 @@ type User {
   updatedAt: String!
   loggedInAt: String!
   fullName: String!
+
+  pendingDoc: [DocApproval!]
+  newMail: [Mail!]
   age: Int!
 }
 
