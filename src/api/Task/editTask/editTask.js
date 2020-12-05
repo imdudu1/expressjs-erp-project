@@ -28,12 +28,46 @@ export default {
           if (!!endDate) {
             data.endDateTime = new Date(endDate);
           }
-          await prisma.updateTask({
-            where: {
-              id,
-            },
-            data,
+          const isValid = await prisma.$exists.task({
+            AND: [
+              {
+                id_not: id
+              },
+              {
+                OR: [
+                  {
+                    AND: [
+                      { beginDateTime_lte: new Date(beginDate) },
+                      { endDateTime_gte: new Date(beginDate) }
+                    ]
+                  },
+                  {
+                    AND: [
+                      { beginDateTime_lte: new Date(endDate) },
+                      { endDateTime_gte: new Date(endDate) }
+                    ]
+                  },
+                  {
+                    AND: [
+                      { beginDateTime_gte: new Date(beginDate)},
+                      { endDateTime_lte: new Date(endDate) }
+                    ]
+                  }
+                ]
+              }
+            ]
           });
+          if (!isValid) {
+            await prisma.updateTask({
+              where: {
+                id,
+              },
+              data,
+            });
+            return true;
+          } else {
+            return false;
+          }
         }
         return true;
       } else {
