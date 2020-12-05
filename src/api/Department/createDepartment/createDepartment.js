@@ -8,29 +8,33 @@ export default {
         let isDefault = args.isDefault || false;
         const [defaultDept] = await prisma.departments({
           where: {
-            isDefault: true,
-          },
+            isDefault: true
+          }
         });
-        if (!!defaultDept) {
-          await prisma.updateDepartment({
-            where: {
-              id: defaultDept.id,
-            },
-            data: {
-              isDefault: false,
-            },
-          });
+        if (isDefault) {
+          if (!!defaultDept) {
+            await prisma.updateDepartment({
+              where: {
+                id: defaultDept.id
+              },
+              data: {
+                isDefault: false
+              }
+            });
+          }
         } else {
-          isDefault = true;
+          if (!!!defaultDept) {
+            isDefault = true;
+          }
         }
         await prisma.createDepartment({
           title,
-          isDefault,
+          isDefault
         });
         return true;
       } catch (error) {
         return false;
       }
-    },
-  },
+    }
+  }
 };
