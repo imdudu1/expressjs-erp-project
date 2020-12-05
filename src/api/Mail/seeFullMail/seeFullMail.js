@@ -5,15 +5,31 @@ export default {
     seeFullMail: async (_, args, { request, isAuthenticated }) => {
       const user = await isAuthenticated(request);
       const { id } = args;
-      await prisma.updateMail({
+
+      const [mail] = await prisma.mails({
         where: {
-          id,
-        },
-        data: {
-          isRead: true,
-        },
+          AND: [
+            { id },
+            {
+              to: {
+                id: user.id
+              }
+            }
+          ]
+        }
       });
+      if (!!mail) {
+        await prisma.updateMail({
+          where: {
+            id: mail.id
+          },
+          data: {
+            isRead: true
+          }
+        });
+      }
+
       return prisma.mail({ id });
-    },
-  },
+    }
+  }
 };

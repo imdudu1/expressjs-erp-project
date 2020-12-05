@@ -6,22 +6,29 @@ export default {
       const user = await isAuthenticated(request);
       const { id } = args;
       const isExistMail = await prisma.$exists.mail({
-        id,
+        AND: [
+          { id },
+          {
+            to: {
+              id: user.id
+            }
+          }
+        ]
       });
 
       if (isExistMail) {
         await prisma.updateMail({
           where: {
-            id,
+            id
           },
           data: {
-            isRead: true,
-          },
+            isRead: true
+          }
         });
         return true;
       } else {
         return false;
       }
-    },
-  },
+    }
+  }
 };
