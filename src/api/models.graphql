@@ -145,7 +145,8 @@ type Approver {
   approver: User!
   nextApprover: Approver
   isPass: Boolean!
-  approveDate: String!
+  approveDate: String
+  acceptComment: String
   createdAt: String!
   updatedAt: String!
 }
