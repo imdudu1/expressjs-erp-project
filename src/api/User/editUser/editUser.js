@@ -1,4 +1,3 @@
-import * as argon2 from "argon2";
 import { prisma } from "../../../../generated/prisma-client";
 
 const DELETE = "DELETE";
@@ -6,7 +5,7 @@ const EDIT = "EDIT";
 
 export default {
   Mutation: {
-    editUser: async (_, args, { request, isAuthenticated }) => {
+    editUser: async (_, args) => {
       try {
         const {
           id,
@@ -19,7 +18,7 @@ export default {
           address,
           addressDetail,
           birthDay,
-          action
+          action,
         } = args;
 
         if (action === EDIT) {
@@ -30,15 +29,15 @@ export default {
           if (!!rank) {
             data.rank = {
               connect: {
-                id: rank
-              }
+                id: rank,
+              },
             };
           }
           if (!!department) {
             data.department = {
               connect: {
-                id: department
-              }
+                id: department,
+              },
             };
           }
           if (!!address) {
@@ -51,17 +50,26 @@ export default {
           if (!!birthDay) data.birthDay = new Date(birthDay);
           await prisma.updateUser({
             where: {
-              id
+              id,
             },
-            data
+            data,
           });
         } else if (action === DELETE) {
-          await prisma.deleteUser({ id });
+          // await prisma.deleteUser({ id });
+          await prisma.updateUser({
+            where: {
+              id,
+            },
+            data: {
+              isDelete: true,
+            },
+          });
         }
         return true;
       } catch (error) {
+        console.log(error);
         return false;
       }
-    }
-  }
+    },
+  },
 };

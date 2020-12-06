@@ -5,10 +5,15 @@ export default {
     deptUsers: (_, args) =>
       prisma.users({
         where: {
-          department: {
-            id: args.id
-          }
-        }
-      })
-  }
+          AND: [
+            { isDelete: false },
+            {
+              department: {
+                id: args.id,
+              },
+            },
+          ],
+        },
+      }),
+  },
 };

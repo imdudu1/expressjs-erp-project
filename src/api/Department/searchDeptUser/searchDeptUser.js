@@ -1,4 +1,4 @@
-import {prisma} from "../../../../generated/prisma-client";
+import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Query: {
@@ -7,20 +7,22 @@ export default {
         where: {
           AND: [
             {
-
+              isDelete: false,
+            },
+            {
               department: {
-                id: args.deptId
-              }
+                id: args.deptId,
+              },
             },
             {
               OR: [
-                {username_contains: args.term},
-                {lastName_contains: args.term},
-                {firstName_contains: args.term},
-              ]
-            }
-          ]
-        }
-      })
-  }
+                { username_contains: args.term },
+                { lastName_contains: args.term },
+                { firstName_contains: args.term },
+              ],
+            },
+          ],
+        },
+      }),
+  },
 };

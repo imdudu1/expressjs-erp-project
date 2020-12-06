@@ -15,6 +15,7 @@ type User {
   createdAt: String!
   updatedAt: String!
   loggedInAt: String!
+  isDelete: Boolean
   fullName: String!
 
   pendingDoc: [DocApproval!]

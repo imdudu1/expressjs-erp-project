@@ -18,23 +18,26 @@ export default {
       const { date } = args;
       const endMonth = addHours(startOfDay(new Date(date)), 9);
       const startMonth = subMonths(endMonth, 1);
-      const users = await prisma.users();
-      console.log(startMonth, endMonth);
-      users.map(async user => {
+      const users = await prisma.users({
+        where: {
+          isDelete: false,
+        },
+      });
+      users.map(async (user) => {
         const commuteTimeItems = await prisma.commuteTimes({
           where: {
             user: {
-              id: user.id
+              id: user.id,
             },
             AND: [
               {
-                workDateTime_gte: startMonth
+                workDateTime_gte: startMonth,
               },
               {
-                workDateTime_lt: endMonth
-              }
-            ]
-          }
+                workDateTime_lt: endMonth,
+              },
+            ],
+          },
         });
         if (commuteTimeItems.length === 0) return;
 
@@ -44,7 +47,7 @@ export default {
         let nightShift = 0.0;
         let overtime = 0.0;
         let holidayWorkTime = 0.0;
-        commuteTimeItems.map(commuteTime => {
+        commuteTimeItems.map((commuteTime) => {
           const {
             isHoliday,
             workTime,
@@ -78,8 +81,8 @@ export default {
         await prisma.createSalary({
           user: {
             connect: {
-              id: user.id
-            }
+              id: user.id,
+            },
           },
           nationalPension,
           healthInsurance,
@@ -88,11 +91,11 @@ export default {
           //dayShiftAmount: Math.round(dayShift * hourlyWage),
           dayShiftAmount: Math.round(wage),
           nightShiftAmount: Math.round(nightShift * hourlyWage),
-          overtimeAmount: Math.round(overtime * hourlyWage)
+          overtimeAmount: Math.round(overtime * hourlyWage),
         });
       });
 
       return true;
-    }
-  }
+    },
+  },
 };

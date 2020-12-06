@@ -12,35 +12,40 @@ export default {
           case ACTION_DELETE:
             const users = await prisma.users({
               where: {
-                department: {
-                  id
-                }
-              }
+                AND: [
+                  { isDelete: false },
+                  {
+                    department: {
+                      id,
+                    },
+                  },
+                ],
+              },
             });
             const [defaultDept] = await prisma.departments({
               where: {
-                isDefault: true
-              }
+                isDefault: true,
+              },
             });
             if (defaultDept.id === id) {
               return Error("기본 부서는 삭제할 수 없습니다.");
             }
-            users.map(async user => {
+            users.map(async (user) => {
               await prisma.updateUser({
                 where: {
-                  id: user.id
+                  id: user.id,
                 },
                 data: {
                   department: {
                     connect: {
-                      id: defaultDept.id
-                    }
-                  }
-                }
+                      id: defaultDept.id,
+                    },
+                  },
+                },
               });
             });
             await prisma.deleteDepartment({
-              id
+              id,
             });
             break;
 
@@ -52,15 +57,15 @@ export default {
             if (!!leaderUser) {
               data.leaderUser = {
                 connect: {
-                  id: leaderUser
-                }
+                  id: leaderUser,
+                },
               };
             }
             await prisma.updateDepartment({
               where: {
-                id
+                id,
               },
-              data
+              data,
             });
             break;
 
@@ -71,6 +76,6 @@ export default {
       } catch (error) {
         return false;
       }
-    }
-  }
+    },
+  },
 };

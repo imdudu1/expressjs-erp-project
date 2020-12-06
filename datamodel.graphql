@@ -14,6 +14,7 @@ type User {
   basePay: Int @default(value: 42000000)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  isDelete: Boolean @default(value: false)
   loggedInAt: DateTime
 }
 
