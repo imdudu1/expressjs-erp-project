@@ -36,7 +36,7 @@ type Rank {
 
 type Salary {
   id: ID! @id
-  user: User!
+  user: User
   dayShiftAmount: Int!
   nightShiftAmount: Int!
   overtimeAmount: Int!
@@ -50,7 +50,7 @@ type Salary {
 
 type CommuteTime {
   id: ID! @id
-  user: User!
+  user: User
   workDateTime: DateTime!
   offWorkDateTime: DateTime!
   workTime: Float!
@@ -80,8 +80,8 @@ type Message {
 
 type Mail {
   id: ID! @id
-  from: User! @relation(name: "MailFrom")
-  to: User! @relation(name: "MailTo")
+  from: User @relation(name: "MailFrom")
+  to: User @relation(name: "MailTo")
   subject: String!
   content: String!
   isRead: Boolean! @default(value: false)
@@ -101,7 +101,7 @@ type Category {
 
 type Task {
   id: ID! @id
-  user: User!
+  user: User
   category: Category!
   beginDateTime: DateTime!
   endDateTime: DateTime!
@@ -121,7 +121,7 @@ type TaskKeyword {
 type DocApproval {
   id: ID! @id
   state: String! @default(value: "PENDING")
-  drafter: User! @relation(name: "Drafter")
+  drafter: User @relation(name: "Drafter")
   currentApprover: Approver! @relation(name: "CurrentApprover")
   approvers: [Approver!]! @relation(name: "Approvers")
   reviewers: [User!] @relation(name: "Reviewers")
@@ -135,7 +135,7 @@ type DocApproval {
 
 type Approver {
   id: ID! @id
-  approver: User!
+  approver: User
   nextApprover: Approver
   isPass: Boolean! @default(value: false)
   approveDate: DateTime
